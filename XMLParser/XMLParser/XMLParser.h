@@ -10,4 +10,6 @@
 
 @interface XMLParser : NSObject
 
+- (void)generateXMLFileFrom:(NSURL *)sourceFile;
+
 @end

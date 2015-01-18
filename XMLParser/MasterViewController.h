@@ -7,14 +7,20 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "XMLParser.h"
 
 @interface MasterViewController : NSViewController {
     
     IBOutlet NSTextField *sourceFileLabel;
     NSOpenPanel *openPanel;
+    NSURL *sourceFile;
+    
+    XMLParser *parser;
     
 }
 
-- (IBAction)chooseSourceFile:(id)sender;
+- (IBAction)selectSourceFile:(id)sender;
+
+- (IBAction)generateXML:(id)sender;
 
 @end

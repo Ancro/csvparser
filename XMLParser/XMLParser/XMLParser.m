@@ -10,4 +10,8 @@
 
 @implementation XMLParser
 
+- (void)generateXMLFileFrom:(NSURL *)sourceFile {
+    NSLog(@"Dateiname wurde empfangen.");
+}
+
 @end

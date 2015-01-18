@@ -25,10 +25,19 @@
     [openPanel setAllowedFileTypes:[NSArray arrayWithObject:@"txt"]];
 }
 
-- (IBAction)chooseSourceFile:(id)sender {
+- (IBAction)selectSourceFile:(id)sender {
     [openPanel beginWithCompletionHandler:^(NSInteger result) {
-        [sourceFileLabel setStringValue:[[openPanel URL] lastPathComponent]];
+        sourceFile = [openPanel URL];
+        [sourceFileLabel setStringValue:[sourceFile lastPathComponent]];
     }];
+}
+
+- (IBAction)generateXML:(id)sender {
+    // TODO: Tell XMLParser to parse 'sourceFile'.
+    
+    parser = [[XMLParser alloc] init];
+    NSLog(@"Dateiname wird an XML-Parser übergeben.");
+    [parser generateXMLFileFrom:sourceFile];
 }
 
 @end

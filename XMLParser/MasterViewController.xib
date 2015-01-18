@@ -23,7 +23,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="chooseSourceFile:" target="-2" id="6hU-xw-PVY"/>
+                        <action selector="selectSourceFile:" target="-2" id="6hU-xw-PVY"/>
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fdj-Os-pXi">
@@ -40,6 +40,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="generateXML:" target="-2" id="lyT-tH-6Wf"/>
+                    </connections>
                 </button>
             </subviews>
             <point key="canvasLocation" x="200" y="599"/>
