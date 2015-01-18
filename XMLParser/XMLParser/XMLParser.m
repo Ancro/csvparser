@@ -24,13 +24,20 @@
         // Split string at line-breaks, make array
         NSUInteger length = [output length];
         NSUInteger paraStart = 0, paraEnd = 0, contentsEnd = 0;
-        NSMutableArray *array = [NSMutableArray array];
+        NSMutableArray *contentArray = [NSMutableArray array];
         NSRange currentRange;
         
         while (paraEnd < length) {
             [output getParagraphStart:&paraStart end:&paraEnd contentsEnd:&contentsEnd forRange:NSMakeRange(paraEnd, 0)];
             currentRange = NSMakeRange(paraStart, contentsEnd - paraStart);
-            [array addObject:[output substringWithRange:currentRange]];
+            [contentArray addObject:[output substringWithRange:currentRange]];
+        }
+        
+        NSMutableArray *separatedLineArray = [NSMutableArray array];
+        
+        for (NSString *line in contentArray) {
+            [separatedLineArray addObject:[line substringWithRange:NSMakeRange(0, 5)]];
+            NSLog(@"%@", [separatedLineArray componentsJoinedByString:@", "]);
         }
     }
 }
