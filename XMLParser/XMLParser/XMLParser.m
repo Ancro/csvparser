@@ -17,9 +17,21 @@
     if ([fileManager fileExistsAtPath:[sourceFile path]]) {
         NSLog(@"File still exists.");
         
+        // Read file
         fileContents = [fileManager contentsAtPath:[sourceFile path]];
         NSString *output = [[NSString alloc] initWithData:fileContents encoding:NSUTF8StringEncoding];
-        NSLog(@"%@", output);
+        
+        // Split string at line-breaks, make array
+        NSUInteger length = [output length];
+        NSUInteger paraStart = 0, paraEnd = 0, contentsEnd = 0;
+        NSMutableArray *array = [NSMutableArray array];
+        NSRange currentRange;
+        
+        while (paraEnd < length) {
+            [output getParagraphStart:&paraStart end:&paraEnd contentsEnd:&contentsEnd forRange:NSMakeRange(paraEnd, 0)];
+            currentRange = NSMakeRange(paraStart, contentsEnd - paraStart);
+            [array addObject:[output substringWithRange:currentRange]];
+        }
     }
 }
 
