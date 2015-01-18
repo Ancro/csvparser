@@ -11,7 +11,16 @@
 @implementation XMLParser
 
 - (void)generateXMLFileFrom:(NSURL *)sourceFile {
-    NSLog(@"Dateiname wurde empfangen.");
+    NSLog(@"Filename received.");
+    
+    fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:[sourceFile path]]) {
+        NSLog(@"File still exists.");
+        
+        fileContents = [fileManager contentsAtPath:[sourceFile path]];
+        NSString *output = [[NSString alloc] initWithData:fileContents encoding:NSUTF8StringEncoding];
+        NSLog(@"%@", output);
+    }
 }
 
 @end

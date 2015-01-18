@@ -36,7 +36,7 @@
     // TODO: Tell XMLParser to parse 'sourceFile'.
     
     parser = [[XMLParser alloc] init];
-    NSLog(@"Dateiname wird an XML-Parser übergeben.");
+    NSLog(@"Sending filename to parser.");
     [parser generateXMLFileFrom:sourceFile];
 }
 

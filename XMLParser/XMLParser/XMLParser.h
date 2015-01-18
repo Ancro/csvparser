@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface XMLParser : NSObject
+@interface XMLParser : NSObject {
+    NSFileManager *fileManager;
+    NSData *fileContents;
+}
 
 - (void)generateXMLFileFrom:(NSURL *)sourceFile;
 
