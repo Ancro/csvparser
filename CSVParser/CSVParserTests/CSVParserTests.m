@@ -1,6 +1,6 @@
 //
-//  XMLParserTests.m
-//  XMLParserTests
+//  CSVParserTests.m
+//  CSVParserTests
 //
 //  Created by Lucas Hauswald on 18.01.15.
 //  Copyright (c) 2015 Lucas Hauswald. All rights reserved.
@@ -9,11 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 
-@interface XMLParserTests : XCTestCase
+@interface CSVParserTests : XCTestCase
 
 @end
 
-@implementation XMLParserTests
+@implementation CSVParserTests
 
 - (void)setUp {
     [super setUp];

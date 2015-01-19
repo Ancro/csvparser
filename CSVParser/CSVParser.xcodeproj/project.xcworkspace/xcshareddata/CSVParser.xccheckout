@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F51B90AD-FBA1-49F6-9ACE-DAC009695E0F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>CSVParser</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E9AE44813ECF751F4D1FAAF4B87D273643488270</key>
+		<string>https://github.com/Ancro/xmlparser.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>CSVParser/CSVParser.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E9AE44813ECF751F4D1FAAF4B87D273643488270</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Ancro/xmlparser.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E9AE44813ECF751F4D1FAAF4B87D273643488270</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E9AE44813ECF751F4D1FAAF4B87D273643488270</string>
+			<key>IDESourceControlWCCName</key>
+			<string>xmlparser</string>
+		</dict>
+	</array>
+</dict>
+</plist>

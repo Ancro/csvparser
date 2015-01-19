@@ -1,6 +1,6 @@
 //
 //  MasterViewController.m
-//  XMLParser
+//  CSVParser
 //
 //  Created by Lucas Hauswald on 18.01.15.
 //  Copyright (c) 2015 Lucas Hauswald. All rights reserved.
@@ -33,9 +33,7 @@
 }
 
 - (IBAction)generateXML:(id)sender {
-    // TODO: Tell XMLParser to parse 'sourceFile'.
-    
-    parser = [[XMLParser alloc] init];
+    parser = [[CSVParser alloc] init];
     NSLog(@"Sending filename to parser.");
     [parser generateXMLFileFrom:sourceFile];
 }

@@ -1,13 +1,13 @@
 //
 //  MasterViewController.h
-//  XMLParser
+//  CSVParser
 //
 //  Created by Lucas Hauswald on 18.01.15.
 //  Copyright (c) 2015 Lucas Hauswald. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
-#import "XMLParser.h"
+#import "CSVParser.h"
 
 @interface MasterViewController : NSViewController {
     
@@ -15,7 +15,7 @@
     NSOpenPanel *openPanel;
     NSURL *sourceFile;
     
-    XMLParser *parser;
+    CSVParser *parser;
     
 }
 
