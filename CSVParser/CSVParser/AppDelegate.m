@@ -33,4 +33,8 @@
     // Insert code here to tear down your application
 }
 
+- (IBAction)openDocument:(id)sender {
+    [self.masterViewController selectSourceFile:self];
+};
+
 @end
