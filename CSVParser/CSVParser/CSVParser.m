@@ -44,15 +44,97 @@
         for (NSString *line in contentArray) {
             [updateInfoCollection addObject:[CSVParser separateLine:line]];
         }
+
+        // Initialize XML document and add basic info
+        NSXMLElement *stationElement = [[NSXMLElement alloc] initWithName:@"station"];
+        xmlDocument = [[NSXMLDocument alloc] initWithRootElement:stationElement];
+        [xmlDocument setVersion:@"1.0"];
+        [xmlDocument setCharacterEncoding:@"UTF-8"];
+
+        NSXMLDTD *xmlDTD = [[NSXMLDTD alloc] init];
+        [xmlDTD setName:@"station"];
+        [xmlDTD setSystemID:@"http://www.imn.htwk-leipzig.de/~lhauswal/DBS/CRNH0203-2013-CO_Dinosaur_2_E.dtd"];
+        [xmlDocument setDTD:xmlDTD];
         
-        // Build XML
-        NSString *xml = [CSVParser buildXMLTreeWithBasicInfo:basicInfo updateInfo:updateInfoCollection];
-        NSData *xmlFileData = [xml dataUsingEncoding:NSUTF8StringEncoding];
+        [stationElement addAttribute:[NSXMLElement attributeWithName:@"xmlns:xsi" stringValue:@"http://www.w3.org/2001/XMLSchema-instance"]];
+        [stationElement addAttribute:[NSXMLElement attributeWithName:@"xsi:noNamespaceSchemaLocation" stringValue:@"CRNH0203-2013-CO_Dinosaur_2_E.xsd"]];
+
+        [stationElement addChild:[[NSXMLElement alloc] initWithName:@"wbanno" stringValue:[basicInfo objectAtIndex:0]]];
+        [stationElement addChild:[[NSXMLElement alloc] initWithName:@"longitude" stringValue:[basicInfo objectAtIndex:1]]];
+        [stationElement addChild:[[NSXMLElement alloc] initWithName:@"latitude" stringValue:[basicInfo objectAtIndex:2]]];
+
+        // Add update info
+        for (NSArray *updateInfo in updateInfoCollection) {
+            
+            void (^addSubElements)(NSString *, NSString *, NSString *, NSString *, NSXMLElement *) = ^(NSString *name, NSString *value, NSString *attr, NSString *attrValue, NSXMLElement *parent) {
+                NSXMLElement *child = [[NSXMLElement alloc] initWithName:name stringValue:value];
+                NSXMLElement *attribute = [NSXMLElement attributeWithName:attr stringValue:attrValue];
+                [child addAttribute:attribute];
+                [parent addChild:child];
+            };
+
+            NSXMLElement *setElement = [[NSXMLElement alloc] initWithName:@"set"];
+
+            [setElement addChild:[[NSXMLElement alloc] initWithName:@"utc_d" stringValue:[updateInfo objectAtIndex:0]]];
+            [setElement addChild:[[NSXMLElement alloc] initWithName:@"utc_t" stringValue:[updateInfo objectAtIndex:1]]];
+            [setElement addChild:[[NSXMLElement alloc] initWithName:@"dl_vn" stringValue:[updateInfo objectAtIndex:2]]];
+
+            // Temperature element
+            NSXMLElement *tempElement = [[NSXMLElement alloc] initWithName:@"temp"];
+            [tempElement addChild:[[NSXMLElement alloc] initWithName:@"avg" stringValue:[updateInfo objectAtIndex:3]]];
+            [tempElement addChild:[[NSXMLElement alloc] initWithName:@"hr" stringValue:[updateInfo objectAtIndex:4]]];
+            [tempElement addChild:[[NSXMLElement alloc] initWithName:@"max" stringValue:[updateInfo objectAtIndex:5]]];
+            [tempElement addChild:[[NSXMLElement alloc] initWithName:@"min" stringValue:[updateInfo objectAtIndex:6]]];
+            [setElement addChild:tempElement];
+
+            // Solar radiation element
+            NSXMLElement *solarElement = [[NSXMLElement alloc] initWithName:@"solar"];
+            addSubElements(@"avg", [updateInfo objectAtIndex:7], @"flag", [updateInfo objectAtIndex:8], solarElement);
+            addSubElements(@"max", [updateInfo objectAtIndex:9], @"flag", [updateInfo objectAtIndex:10], solarElement);
+            addSubElements(@"min", [updateInfo objectAtIndex:11], @"flag", [updateInfo objectAtIndex:12], solarElement);
+            [setElement addChild:solarElement];
+
+            // Surface temperature element
+            NSXMLElement *surElement = [[NSXMLElement alloc] initWithName:@"sur"];
+            NSXMLElement *surAttribute = [NSXMLElement attributeWithName:@"type" stringValue:[updateInfo objectAtIndex:13]];
+            [surElement addAttribute:surAttribute];
+            addSubElements(@"avg", [updateInfo objectAtIndex:14], @"flag", [updateInfo objectAtIndex:15], surElement);
+            addSubElements(@"max", [updateInfo objectAtIndex:16], @"flag", [updateInfo objectAtIndex:17], surElement);
+            addSubElements(@"min", [updateInfo objectAtIndex:18], @"flag", [updateInfo objectAtIndex:19], surElement);
+            [setElement addChild:surElement];
+
+            // RH-HR-AVG
+            NSXMLElement *rhElement = [[NSXMLElement alloc] initWithName:@"rh" stringValue:[updateInfo objectAtIndex:20]];
+            NSXMLElement *rhAttribute = [NSXMLElement attributeWithName:@"flag" stringValue:[updateInfo objectAtIndex:21]];
+            [rhElement addAttribute:rhAttribute];
+            [setElement addChild:rhElement];
+
+            // Soil element
+            NSXMLElement *soilElement = [[NSXMLElement alloc] initWithName:@"soil"];
+            [soilElement addChild:[[NSXMLElement alloc] initWithName:@"m_50" stringValue:[updateInfo objectAtIndex:22]]];
+            [soilElement addChild:[[NSXMLElement alloc] initWithName:@"m_100" stringValue:[updateInfo objectAtIndex:23]]];
+            [soilElement addChild:[[NSXMLElement alloc] initWithName:@"t_5" stringValue:[updateInfo objectAtIndex:24]]];
+            [soilElement addChild:[[NSXMLElement alloc] initWithName:@"t_10" stringValue:[updateInfo objectAtIndex:25]]];
+            [soilElement addChild:[[NSXMLElement alloc] initWithName:@"t_20" stringValue:[updateInfo objectAtIndex:26]]];
+            [soilElement addChild:[[NSXMLElement alloc] initWithName:@"t_50" stringValue:[updateInfo objectAtIndex:27]]];
+            [soilElement addChild:[[NSXMLElement alloc] initWithName:@"t_100" stringValue:[updateInfo objectAtIndex:28]]];
+            [setElement addChild:soilElement];
+
+            [stationElement addChild:setElement];
+        }
         
+        // Optional explanation of element names
+        [xmlDocument insertChild:[NSXMLNode commentWithStringValue:@"\n- Documentation for arbitrary element names\n- =========================================\n- <utc_d>         -> UTC_Date\n- <utc_t>         -> UTC_Time\n- <dl_vn>         -> CRX_VN\n- <temp><avg>     -> T_CALC\n- <temp><hr>      -> T_HR_AVG\n- <temp><max>     -> T_MAX\n- <temp><min>     -> T_MIN\n- <solar><avg>    -> SOLARAD\n- <solar><max>    -> SOLARAD_MAX\n- <solar><min>    -> SOLARAD_MIN\n- <sur [@type]>   -> SUR_TEMP_TYPE\n- <sur><avg>      -> SUR_TEMP\n- <sur><max>      -> SUR_TEMP_MAX\n- <sur><min>    	 -> SUR_TEMP_MIN\n- <rh>         	 -> RH_HR_AVG\n- <soil><m_*> 	 -> SOIL_MOISTURE_*\n- <soil><t_*>     -> SOIL_TEMP_*\n"] atIndex:0];
+
         // Save XML
-        NSMutableArray *urlArray = [[sourceFile pathComponents] mutableCopy];
-        [urlArray replaceObjectAtIndex:([urlArray count] - 1) withObject:[NSString stringWithFormat:@"%@%@", [urlArray lastObject], @".xml"]];
-        [fileManager createFileAtPath:[urlArray componentsJoinedByString:@"/"] contents:xmlFileData attributes:nil];
+        NSLog(@"Writing out XML file...");
+        NSString *xml = [xmlDocument XMLStringWithOptions:NSXMLNodePrettyPrint];
+        NSData *xmlFileData = [xml dataUsingEncoding:NSUTF8StringEncoding];
+        NSURL *xmlURL = [[sourceFile URLByDeletingPathExtension] URLByAppendingPathExtension:@"xml"];
+        BOOL done = [xmlFileData writeToURL:xmlURL atomically:NO];
+        if (done) {
+            NSLog(@"Done.");
+        }
     }
 }
 
@@ -104,88 +186,6 @@
     NSCharacterSet *characterSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     NSString *substring = [[NSString alloc] initWithString:[line substringWithRange:NSMakeRange(start, length)]];
     return [substring stringByTrimmingCharactersInSet:characterSet];
-}
-
-+ (NSString *)buildXMLTreeWithBasicInfo:(NSArray *)basicInfo updateInfo:(NSArray *)updateInfoCollection {
-    NSMutableString *xml = [[NSMutableString alloc] init];
-    
-    // Standard header
-    [xml appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?xml-stylesheet type=\"text/xsl\" href=\"http://www.imn.htwk-leipzig.de/~lhauswal/DBS/CRNH0203-2013-CO_Dinosaur_2_E.xsl\"?>\n<!DOCTYPE station SYSTEM \"http://www.imn.htwk-leipzig.de/~lhauswal/DBS/CRNH0203-2013-CO_Dinosaur_2_E.dtd\">\n<!--\n- Documentation for arbitrary element names\n- =========================================\n- <utc_d>         -> UTC_Date\n- <utc_t>         -> UTC_Time\n- <dl_vn>         -> CRX_VN\n- <temp><avg>     -> T_CALC\n- <temp><hr>      -> T_HR_AVG\n- <temp><max>     -> T_MAX\n- <temp><min>     -> T_MIN\n- <solar><avg>    -> SOLARAD\n- <solar><max>    -> SOLARAD_MAX\n- <solar><min>    -> SOLARAD_MIN\n- <sur [@type]>   -> SUR_TEMP_TYPE\n- <sur><avg>      -> SUR_TEMP\n- <sur><max>      -> SUR_TEMP_MAX\n- <sur><min>    	 -> SUR_TEMP_MIN\n- <rh>         	 -> RH_HR_AVG\n- <soil><m_*> 	 -> SOIL_MOISTURE_*\n- <soil><t_*>     -> SOIL_TEMP_*\n-->\n<station xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"CRNH0203-2013-CO_Dinosaur_2_E.xsd\">\n\t<wbanno>\n\t\t"];
-    
-    // Station info
-    [xml appendString:[basicInfo objectAtIndex:0]];
-    [xml appendString:@"\n\t</wbanno>\n\t<longitude>\n\t\t"];
-    [xml appendString:[basicInfo objectAtIndex:1]];
-    [xml appendString:@"\n\t</longitude>\n\t<latitude>\n\t\t"];
-    [xml appendString:[basicInfo objectAtIndex:2]];
-    [xml appendString:@"\n\t</latitude>\n"];
-    
-    // Update info
-    for (NSArray *updateInfo in updateInfoCollection) {
-        [xml appendString:@"\t<set>\n\t\t<utc_d>\n\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:0]];
-        [xml appendString:@"\n\t\t</utc_d>\n\t\t<utc_t>\n\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:1]];
-        [xml appendString:@"\n\t\t</utc_t>\n\t\t<dl_vn>\n\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:2]];
-        [xml appendString:@"\n\t\t</dl_vn>\n\t\t<temp>\n\t\t\t<avg>\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:3]];
-        [xml appendString:@"\n\t\t\t</avg>\n\t\t\t<hr>\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:4]];
-        [xml appendString:@"\n\t\t\t</hr>\n\t\t\t<max>\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:5]];
-        [xml appendString:@"\n\t\t\t</max>\n\t\t\t<min>\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:6]];
-        [xml appendString:@"\n\t\t\t</min>\n\t\t</temp>\n\t\t<solar>\n\t\t\t<avg flag=\""];
-        [xml appendString:[updateInfo objectAtIndex:8]];
-        [xml appendString:@"\">\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:7]];
-        [xml appendString:@"\n\t\t\t</avg>\n\t\t\t<max flag=\""];
-        [xml appendString:[updateInfo objectAtIndex:10]];
-        [xml appendString:@"\">\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:9]];
-        [xml appendString:@"\n\t\t\t</max>\n\t\t\t<min flag=\""];
-        [xml appendString:[updateInfo objectAtIndex:12]];
-        [xml appendString:@"\">\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:11]];
-        [xml appendString:@"\n\t\t\t</min>\n\t\t</solar>\n\t\t<sur type=\""];
-        [xml appendString:[updateInfo objectAtIndex:13]];
-        [xml appendString:@"\">\n\t\t\t<avg flag=\""];
-        [xml appendString:[updateInfo objectAtIndex:15]];
-        [xml appendString:@"\">\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:14]];
-        [xml appendString:@"\n\t\t\t</avg>\n\t\t\t<max flag=\""];
-        [xml appendString:[updateInfo objectAtIndex:17]];
-        [xml appendString:@"\">\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:16]];
-        [xml appendString:@"\n\t\t\t</max>\n\t\t\t<min flag=\""];
-        [xml appendString:[updateInfo objectAtIndex:19]];
-        [xml appendString:@"\">\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:18]];
-        [xml appendString:@"\n\t\t\t</min>\n\t\t</sur>\n\t\t<rh flag=\""];
-        [xml appendString:[updateInfo objectAtIndex:21]];
-        [xml appendString:@"\">\n\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:20]];
-        [xml appendString:@"\n\t\t</rh>\n\t\t<soil>\n\t\t\t<m_50>\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:22]];
-        [xml appendString:@"\n\t\t\t</m_50>\n\t\t\t<m_100>\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:23]];
-        [xml appendString:@"\n\t\t\t</m_100>\n\t\t\t<t_5>\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:24]];
-        [xml appendString:@"\n\t\t\t</t_5>\n\t\t\t<t_10>\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:25]];
-        [xml appendString:@"\n\t\t\t</t_10>\n\t\t\t<t_20>\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:26]];
-        [xml appendString:@"\n\t\t\t</t_20>\n\t\t\t<t_50>\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:27]];
-        [xml appendString:@"\n\t\t\t</t_50>\n\t\t\t<t_100>\n\t\t\t\t"];
-        [xml appendString:[updateInfo objectAtIndex:28]];
-        [xml appendString:@"\n\t\t\t</t_100>\n\t\t</soil>\n\t</set>\n"];
-    }
-    
-    [xml appendString:@"</station>\n"];
-    
-    return xml;
 }
 
 @end
