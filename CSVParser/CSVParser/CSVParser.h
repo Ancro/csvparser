@@ -8,10 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CSVParser : NSObject {
-    NSXMLDocument *xmlDocument;
-}
+@interface CSVParser : NSObject;
 
-- (void)generateXMLFileFrom:(NSURL *)sourceFile;
+- (NSXMLDocument *)XMLDocumentFromFileAtURL:(NSURL *)sourceFile;
 
 @end

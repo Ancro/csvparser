@@ -8,34 +8,48 @@
 
 #import "MasterViewController.h"
 
-@interface MasterViewController ()
+@interface MasterViewController () {
+    IBOutlet NSTextField *_sourceFileLabel;
+    NSOpenPanel *_openPanel;
+    NSURL *_sourceFile;
+    
+    CSVParser *parser;
+}
 
 @end
 
 @implementation MasterViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
-    openPanel = [NSOpenPanel openPanel];
+    _openPanel = NSOpenPanel.openPanel;
     
-    [openPanel setCanChooseFiles:YES];
-    [openPanel setCanChooseDirectories:NO];
-    [openPanel setAllowsMultipleSelection:NO];
-    [openPanel setAllowedFileTypes:[NSArray arrayWithObject:@"txt"]];
+    _openPanel.canChooseFiles = YES;
+    _openPanel.canChooseDirectories = NO;
+    _openPanel.allowsMultipleSelection = NO;
+    _openPanel.allowedFileTypes = [NSArray arrayWithObject:@"txt"];
 }
 
-- (IBAction)selectSourceFile:(id)sender {
-    [openPanel beginWithCompletionHandler:^(NSInteger result) {
-        sourceFile = [openPanel URL];
-        [sourceFileLabel setStringValue:[sourceFile lastPathComponent]];
+- (IBAction)selectSourceFile:(id)sender
+{
+    [_openPanel beginWithCompletionHandler:^(NSInteger result) {
+        _sourceFile = _openPanel.URL;
+        _sourceFileLabel.stringValue = _sourceFile.lastPathComponent;
     }];
 }
 
-- (IBAction)generateXML:(id)sender {
-    parser = [[CSVParser alloc] init];
-    NSLog(@"Sending filename to parser.");
-    [parser generateXMLFileFrom:sourceFile];
+- (IBAction)generateXML:(id)sender
+{
+    parser = [CSVParser new];
+    NSXMLDocument *xmlDocument = [parser XMLDocumentFromFileAtURL: _sourceFile];
+    
+    // Save XML
+    NSString *xml = [xmlDocument XMLStringWithOptions:NSXMLNodePrettyPrint];
+    NSData *xmlFileData = [xml dataUsingEncoding:NSUTF8StringEncoding];
+    NSURL *xmlURL = [[_sourceFile URLByDeletingPathExtension] URLByAppendingPathExtension:@"xml"];
+    [xmlFileData writeToURL:xmlURL atomically:NO];
 }
 
 @end

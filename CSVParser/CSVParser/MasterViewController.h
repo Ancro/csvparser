@@ -9,15 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "CSVParser.h"
 
-@interface MasterViewController : NSViewController {
-    
-    IBOutlet NSTextField *sourceFileLabel;
-    NSOpenPanel *openPanel;
-    NSURL *sourceFile;
-    
-    CSVParser *parser;
-    
-}
+@interface MasterViewController : NSViewController;
 
 - (IBAction)selectSourceFile:(id)sender;
 

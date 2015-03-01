@@ -21,7 +21,8 @@
 
 @implementation AppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
     // Insert code here to initialize your application
     self.masterViewController = [[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil];
     
@@ -29,11 +30,13 @@
     self.masterViewController.view.frame = ((NSView *)self.window.contentView).bounds;
 }
 
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
+- (void)applicationWillTerminate:(NSNotification *)aNotification
+{
     // Insert code here to tear down your application
 }
 
-- (IBAction)openDocument:(id)sender {
+- (IBAction)openDocument:(id)sender
+{
     [self.masterViewController selectSourceFile:self];
 };
 
