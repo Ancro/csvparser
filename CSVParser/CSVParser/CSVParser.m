@@ -100,7 +100,7 @@ enum : NSUInteger {
     NSString *input = [[NSString alloc] initWithData:fileContents encoding:NSUTF8StringEncoding];
 
     // Split into array of lines
-    NSMutableArray *lines = [[[input stringByTrimmingCharactersInSet: NSCharacterSet.whitespaceAndNewlineCharacterSet] componentsSeparatedByCharactersInSet: NSCharacterSet.newlineCharacterSet] mutableCopy];
+    NSArray *lines = [[input stringByTrimmingCharactersInSet: NSCharacterSet.whitespaceAndNewlineCharacterSet] componentsSeparatedByCharactersInSet: NSCharacterSet.newlineCharacterSet];
 
     if (lines.count != 8760 && lines.count != 8784)
         return nil;
