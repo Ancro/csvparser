@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE station SYSTEM "http://www.imn.htwk-leipzig.de/~lhauswal/DBS/CRNH0203-2013-CO_Dinosaur_2_E.dtd">
+
+<station xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="CRNH0203-2013-CO_Dinosaur_2_E.xsd">
+    <wbanno>94082</wbanno>
+    <longitude>-108.97</longitude>
+    <latitude>40.24</latitude>
+    <set>
+        <utc_d>20130101</utc_d>
+        <utc_t>0100</utc_t>
+        <dl_vn>2.412</dl_vn>
+        <temp>
+            <avg>-11.2</avg>
+            <hr>-10.8</hr>
+            <max>-10.3</max>
+            <min>-11.2</min>
+        </temp>
+        <solar>
+            <avg flag="0">0</avg>
+            <max flag="0">0</max>
+            <min flag="0">0</min>
+        </solar>
+        <sur type="C">
+            <avg flag="0">-15.1</avg>
+            <max flag="0">-14.5</max>
+            <min flag="0">-16.1</min>
+        </sur>
+        <rh flag="0">87</rh>
+        <soil>
+            <m_50>0.186</m_50>
+            <m_100>0.224</m_100>
+            <t_5>-1.2</t_5>
+            <t_10>-0.3</t_10>
+            <t_20>0.9</t_20>
+            <t_50>2.6</t_50>
+            <t_100>5.1</t_100>
+        </soil>
+    </set>
+    <set>
+        <utc_d>20130101</utc_d>
+        <utc_t>0200</utc_t>
+        <dl_vn>2.412</dl_vn>
+        <temp>
+            <avg>-12.7</avg>
+            <hr>-12.3</hr>
+            <max>-11.0</max>
+            <min>-13.5</min>
+        </temp>
+        <solar>
+            <avg flag="0">0</avg>
+            <max flag="0">0</max>
+            <min flag="0">0</min>
+        </solar>
+        <sur type="C">
+            <avg flag="0">-19.4</avg>
+            <max flag="0">-16.1</max>
+            <min flag="0">-20.8</min>
+        </sur>
+        <rh flag="0">85</rh>
+        <soil>
+            <m_50>0.187</m_50>
+            <m_100>0.227</m_100>
+            <t_5>-1.1</t_5>
+            <t_10>-0.3</t_10>
+            <t_20>0.9</t_20>
+            <t_50>2.6</t_50>
+            <t_100>5.1</t_100>
+        </soil>
+    </set>
+</station>

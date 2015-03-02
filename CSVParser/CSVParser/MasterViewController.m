@@ -12,7 +12,7 @@
     IBOutlet NSTextField *_sourceFileLabel;
     NSOpenPanel *_openPanel;
     NSURL *_sourceFile;
-    
+
     CSVParser *parser;
 }
 
@@ -23,9 +23,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     _openPanel = NSOpenPanel.openPanel;
-    
+
     _openPanel.canChooseFiles = YES;
     _openPanel.canChooseDirectories = NO;
     _openPanel.allowsMultipleSelection = NO;
@@ -44,7 +44,12 @@
 {
     parser = [CSVParser new];
     NSXMLDocument *xmlDocument = [parser XMLDocumentFromFileAtURL: _sourceFile];
-    
+
+    if (!xmlDocument) {
+        _sourceFileLabel.stringValue = @"File format incompatible";
+        return;
+    }
+
     // Save XML
     NSString *xml = [xmlDocument XMLStringWithOptions:NSXMLNodePrettyPrint];
     NSData *xmlFileData = [xml dataUsingEncoding:NSUTF8StringEncoding];

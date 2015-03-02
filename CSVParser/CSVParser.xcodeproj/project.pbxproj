@@ -14,15 +14,18 @@
 		A08F145D1A6D506600F1971D /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A08F14581A6D506600F1971D /* MasterViewController.xib */; };
 		A08F145F1A6D508C00F1971D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A08F145E1A6D508C00F1971D /* main.m */; };
 		A08F14721A6D564C00F1971D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A08F14701A6D564C00F1971D /* MainMenu.xib */; };
+		A0EB33EE1AA4782700927B62 /* CSVParser_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EB33ED1AA4782700927B62 /* CSVParser_Tests.m */; };
+		A0EB33F61AA485AD00927B62 /* validFile.txt in Resources */ = {isa = PBXBuildFile; fileRef = A0EB33F41AA485AD00927B62 /* validFile.txt */; };
+		A0EB33F71AA485AD00927B62 /* validFile.xml in Resources */ = {isa = PBXBuildFile; fileRef = A0EB33F51AA485AD00927B62 /* validFile.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A0DCEE8A1A6BF4EA002F8EB2 /* PBXContainerItemProxy */ = {
+		A0EB33EF1AA4782700927B62 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A0DCEE6E1A6BF4EA002F8EB2 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = A0DCEE751A6BF4EA002F8EB2;
-			remoteInfo = XMLParser;
+			remoteInfo = CSVParser;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -36,12 +39,14 @@
 		A08F14581A6D506600F1971D /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
 		A08F145E1A6D508C00F1971D /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A08F14601A6D509300F1971D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A08F146B1A6D536300F1971D /* CSVParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSVParserTests.m; sourceTree = "<group>"; };
-		A08F146C1A6D536300F1971D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A08F14711A6D564C00F1971D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		A0DCEE761A6BF4EA002F8EB2 /* CSVParser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSVParser.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A0DCEE891A6BF4EA002F8EB2 /* CSVParserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CSVParserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0DCEEA41A6BFC2F002F8EB2 /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MasterViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		A0EB33E91AA4782700927B62 /* CSVParser Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CSVParser Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0EB33EC1AA4782700927B62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0EB33ED1AA4782700927B62 /* CSVParser_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSVParser_Tests.m; sourceTree = "<group>"; usesTabs = 1; };
+		A0EB33F41AA485AD00927B62 /* validFile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = validFile.txt; sourceTree = "<group>"; };
+		A0EB33F51AA485AD00927B62 /* validFile.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = validFile.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +57,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A0DCEE861A6BF4EA002F8EB2 /* Frameworks */ = {
+		A0EB33E61AA4782700927B62 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -62,20 +67,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A08F146A1A6D536300F1971D /* CSVParserTests */ = {
-			isa = PBXGroup;
-			children = (
-				A08F146B1A6D536300F1971D /* CSVParserTests.m */,
-				A08F146C1A6D536300F1971D /* Info.plist */,
-			);
-			path = CSVParserTests;
-			sourceTree = SOURCE_ROOT;
-		};
 		A0DCEE6D1A6BF4EA002F8EB2 = {
 			isa = PBXGroup;
 			children = (
 				A0DCEE781A6BF4EA002F8EB2 /* CSVParser */,
-				A08F146A1A6D536300F1971D /* CSVParserTests */,
+				A0EB33EA1AA4782700927B62 /* CSVParser Tests */,
 				A0DCEE771A6BF4EA002F8EB2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -84,7 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				A0DCEE761A6BF4EA002F8EB2 /* CSVParser.app */,
-				A0DCEE891A6BF4EA002F8EB2 /* CSVParserTests.xctest */,
+				A0EB33E91AA4782700927B62 /* CSVParser Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,6 +111,25 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		A0EB33EA1AA4782700927B62 /* CSVParser Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A0EB33ED1AA4782700927B62 /* CSVParser_Tests.m */,
+				A0EB33EB1AA4782700927B62 /* Supporting Files */,
+			);
+			path = "CSVParser Tests";
+			sourceTree = "<group>";
+		};
+		A0EB33EB1AA4782700927B62 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A0EB33F41AA485AD00927B62 /* validFile.txt */,
+				A0EB33F51AA485AD00927B62 /* validFile.xml */,
+				A0EB33EC1AA4782700927B62 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,22 +150,22 @@
 			productReference = A0DCEE761A6BF4EA002F8EB2 /* CSVParser.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A0DCEE881A6BF4EA002F8EB2 /* CSVParserTests */ = {
+		A0EB33E81AA4782700927B62 /* CSVParser Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A0DCEE961A6BF4EA002F8EB2 /* Build configuration list for PBXNativeTarget "CSVParserTests" */;
+			buildConfigurationList = A0EB33F11AA4782700927B62 /* Build configuration list for PBXNativeTarget "CSVParser Tests" */;
 			buildPhases = (
-				A0DCEE851A6BF4EA002F8EB2 /* Sources */,
-				A0DCEE861A6BF4EA002F8EB2 /* Frameworks */,
-				A0DCEE871A6BF4EA002F8EB2 /* Resources */,
+				A0EB33E51AA4782700927B62 /* Sources */,
+				A0EB33E61AA4782700927B62 /* Frameworks */,
+				A0EB33E71AA4782700927B62 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				A0DCEE8B1A6BF4EA002F8EB2 /* PBXTargetDependency */,
+				A0EB33F01AA4782700927B62 /* PBXTargetDependency */,
 			);
-			name = CSVParserTests;
-			productName = XMLParserTests;
-			productReference = A0DCEE891A6BF4EA002F8EB2 /* CSVParserTests.xctest */;
+			name = "CSVParser Tests";
+			productName = "CSVParser Tests";
+			productReference = A0EB33E91AA4782700927B62 /* CSVParser Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -165,7 +180,7 @@
 					A0DCEE751A6BF4EA002F8EB2 = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
-					A0DCEE881A6BF4EA002F8EB2 = {
+					A0EB33E81AA4782700927B62 = {
 						CreatedOnToolsVersion = 6.1.1;
 						TestTargetID = A0DCEE751A6BF4EA002F8EB2;
 					};
@@ -185,7 +200,7 @@
 			projectRoot = "";
 			targets = (
 				A0DCEE751A6BF4EA002F8EB2 /* CSVParser */,
-				A0DCEE881A6BF4EA002F8EB2 /* CSVParserTests */,
+				A0EB33E81AA4782700927B62 /* CSVParser Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -201,10 +216,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A0DCEE871A6BF4EA002F8EB2 /* Resources */ = {
+		A0EB33E71AA4782700927B62 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0EB33F71AA485AD00927B62 /* validFile.xml in Resources */,
+				A0EB33F61AA485AD00927B62 /* validFile.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,20 +239,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A0DCEE851A6BF4EA002F8EB2 /* Sources */ = {
+		A0EB33E51AA4782700927B62 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0EB33EE1AA4782700927B62 /* CSVParser_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A0DCEE8B1A6BF4EA002F8EB2 /* PBXTargetDependency */ = {
+		A0EB33F01AA4782700927B62 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A0DCEE751A6BF4EA002F8EB2 /* CSVParser */;
-			targetProxy = A0DCEE8A1A6BF4EA002F8EB2 /* PBXContainerItemProxy */;
+			targetProxy = A0EB33EF1AA4782700927B62 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -351,7 +369,7 @@
 			};
 			name = Release;
 		};
-		A0DCEE971A6BF4EA002F8EB2 /* Debug */ = {
+		A0EB33F21AA4782700927B62 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -364,14 +382,14 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = CSVParserTests/Info.plist;
+				INFOPLIST_FILE = "CSVParser Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = CSVParserTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XMLParser.app/Contents/MacOS/XMLParser";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CSVParser.app/Contents/MacOS/CSVParser";
 			};
 			name = Debug;
 		};
-		A0DCEE981A6BF4EA002F8EB2 /* Release */ = {
+		A0EB33F31AA4782700927B62 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -380,10 +398,10 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = CSVParserTests/Info.plist;
+				INFOPLIST_FILE = "CSVParser Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = CSVParserTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XMLParser.app/Contents/MacOS/XMLParser";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CSVParser.app/Contents/MacOS/CSVParser";
 			};
 			name = Release;
 		};
@@ -408,11 +426,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A0DCEE961A6BF4EA002F8EB2 /* Build configuration list for PBXNativeTarget "CSVParserTests" */ = {
+		A0EB33F11AA4782700927B62 /* Build configuration list for PBXNativeTarget "CSVParser Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A0DCEE971A6BF4EA002F8EB2 /* Debug */,
-				A0DCEE981A6BF4EA002F8EB2 /* Release */,
+				A0EB33F21AA4782700927B62 /* Debug */,
+				A0EB33F31AA4782700927B62 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -102,13 +102,14 @@ enum : NSUInteger {
     // Split into array of lines
     NSArray *lines = [[input stringByTrimmingCharactersInSet: NSCharacterSet.whitespaceAndNewlineCharacterSet] componentsSeparatedByCharactersInSet: NSCharacterSet.newlineCharacterSet];
 
-    if (lines.count != 8760 && lines.count != 8784)
-        return nil;
-
     // Parse info
-    NSMutableArray *updateInfos = NSMutableArray.new;
+    NSMutableArray *updateInfos = [NSMutableArray new];
     for (NSString *line in lines) {
-        [updateInfos addObject: [CSVParser splitLine: line]];
+        NSArray *newInfo = [CSVParser splitLine: line];
+        if (!newInfo) {
+            return nil;
+        }
+        [updateInfos addObject: newInfo];
     }
 
     // Initialize XML document
@@ -117,7 +118,7 @@ enum : NSUInteger {
     xmlDocument.version = @"1.0";
     xmlDocument.characterEncoding = @"UTF-8";
 
-    NSXMLDTD *xmlDTD = NSXMLDTD.new;
+    NSXMLDTD *xmlDTD = [NSXMLDTD new];
     xmlDTD.name = CSVParserXMLRootKey;
     xmlDTD.systemID = CSVParserDTDKey;
     xmlDocument.DTD = xmlDTD;
@@ -195,6 +196,9 @@ enum : NSUInteger {
                                                               range:NSMakeRange(0, fullLine.length)];
 
     NSMutableArray *updateInfos = [[line componentsSeparatedByCharactersInSet: NSCharacterSet.whitespaceCharacterSet] mutableCopy];
+
+    if (updateInfos.count == 37)
+        return nil;
 
     // Remove redundant and erroneous data
     [updateInfos removeObjectAtIndex:30];   // Soil moisture 20cm
