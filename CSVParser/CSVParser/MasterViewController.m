@@ -42,8 +42,7 @@
 
 - (IBAction)generateXML:(id)sender
 {
-    parser = [CSVParser new];
-    NSXMLDocument *xmlDocument = [parser XMLDocumentFromFileAtURL: _sourceFile];
+    NSXMLDocument *xmlDocument = [CSVParser XMLDocumentFromFileAtURL: _sourceFile];
 
     if (!xmlDocument) {
         _sourceFileLabel.stringValue = @"File format incompatible";

@@ -10,6 +10,6 @@
 
 @interface CSVParser : NSObject;
 
-- (NSXMLDocument *)XMLDocumentFromFileAtURL:(NSURL *)sourceFile;
++ (NSXMLDocument *)XMLDocumentFromFileAtURL:(NSURL *)sourceFile;
 
 @end

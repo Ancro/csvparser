@@ -50,47 +50,49 @@ enum : NSUInteger {
     CSVParserWBANNumberIndex = 0,
     CSVParserUTCDateIndex = 1,
     CSVParserUTCTimeIndex = 2,
-    CSVParserDataLoggerVersionNumberIndex = 3,
-    CSVParserLongitudeIndex = 4,
-    CSVParserLatitudeIndex = 5,
-    CSVParserAverageTemperatureIndex = 6,
-    CSVParserAverageTemperatureDuringEntireHourIndex = 7,
-    CSVParserMaximumTemperatureIndex = 8,
-    CSVParserMinimumTemperatureIndex = 9,
-    CSVParserAverageSolarRadiationIndex = 10,
-    CSVParserAverageSolarRadiationFlagIndex = 11,
-    CSVParserMaximumSolarRadiationIndex = 12,
-    CSVParserMaximumSolarRadiationFlagIndex = 13,
-    CSVParserMinimumSolarRadiationIndex = 14,
-    CSVParserMinimumSolarRadiationFlagIndex = 15,
-    CSVParserSurfaceTemperatureTypeIndex = 16,
-    CSVParserAverageSurfaceTemperatureIndex = 17,
-    CSVParserAverageSurfaceTemperatureFlagIndex = 18,
-    CSVParserMaximumSurfaceTemperatureIndex = 19,
-    CSVParserMaximumSurfaceTemperatureFlagIndex = 20,
-    CSVParserMinimumSurfaceTemperatureIndex = 21,
-    CSVParserMinimumSurfaceTemperatureFlagIndex = 22,
-    CSVParserRHAverageIndex = 23,
-    CSVParserRHAverageFlagIndex = 24,
-    CSVParserSoilMoisture50cmIndex = 25,
-    CSVParserSoilMoisture100cmIndex = 26,
-    CSVParserSoilTemperature5cmIndex = 27,
-    CSVParserSoilTemperature10cmIndex = 28,
-    CSVParserSoilTemperature20cmIndex = 29,
-    CSVParserSoilTemperature50cmIndex = 30,
-    CSVParserSoilTemperature100cmIndex = 31
+	CSVParserLocalDateIndex = 3,
+	CSVParserLocalTimeIndex = 4,
+    CSVParserDataLoggerVersionNumberIndex = 5,
+    CSVParserLongitudeIndex = 6,
+    CSVParserLatitudeIndex = 7,
+    CSVParserAverageTemperatureIndex = 8,
+    CSVParserAverageTemperatureDuringEntireHourIndex = 9,
+    CSVParserMaximumTemperatureIndex = 10,
+    CSVParserMinimumTemperatureIndex = 11,
+	CSVParserPrecipitationIndex = 12,
+    CSVParserAverageSolarRadiationIndex = 13,
+    CSVParserAverageSolarRadiationFlagIndex = 14,
+    CSVParserMaximumSolarRadiationIndex = 15,
+    CSVParserMaximumSolarRadiationFlagIndex = 16,
+    CSVParserMinimumSolarRadiationIndex = 17,
+    CSVParserMinimumSolarRadiationFlagIndex = 18,
+    CSVParserSurfaceTemperatureTypeIndex = 19,
+    CSVParserAverageSurfaceTemperatureIndex = 20,
+    CSVParserAverageSurfaceTemperatureFlagIndex = 21,
+    CSVParserMaximumSurfaceTemperatureIndex = 22,
+    CSVParserMaximumSurfaceTemperatureFlagIndex = 23,
+    CSVParserMinimumSurfaceTemperatureIndex = 24,
+    CSVParserMinimumSurfaceTemperatureFlagIndex = 25,
+    CSVParserRHAverageIndex = 26,
+	CSVParserRHAverageFlagIndex = 27,
+	CSVParserSoilMoisture5cmIndex = 28,
+	CSVParserSoilMoisture10cmIndex = 29,
+	CSVParserSoilMoisture20cmIndex =30,
+    CSVParserSoilMoisture50cmIndex = 31,
+    CSVParserSoilMoisture100cmIndex = 32,
+    CSVParserSoilTemperature5cmIndex = 33,
+    CSVParserSoilTemperature10cmIndex = 34,
+    CSVParserSoilTemperature20cmIndex = 35,
+    CSVParserSoilTemperature50cmIndex = 36,
+    CSVParserSoilTemperature100cmIndex = 37
 };
-
-@interface CSVParser ()
-
-@end
 
 @implementation CSVParser
 
 /*!
  @abstract Returns an NSXMLDocument parsed from the CSV file located at the given URL.
  */
-- (NSXMLDocument *)XMLDocumentFromFileAtURL:(NSURL *)sourceFile
++ (NSXMLDocument *)XMLDocumentFromFileAtURL:(NSURL *)sourceFile
 {
     if (![NSFileManager.defaultManager fileExistsAtPath: sourceFile.path])
         return nil;
@@ -150,18 +152,18 @@ enum : NSUInteger {
 
         // Solar radiation element
         NSXMLElement *solarElement = [[NSXMLElement alloc] initWithName: CSVParserSolarRadiationSetKey];
-        [CSVParser addSubElementWithName:CSVParserAverageSolarRadiationKey Value:updateInfo[CSVParserAverageSolarRadiationIndex] Attribute:CSVParserSolarRadiationFlagKey AttributeValue:updateInfo[CSVParserAverageSolarRadiationFlagIndex] toParentElement:solarElement];
-        [CSVParser addSubElementWithName:CSVParserMaximumSolarRadiationKey Value:updateInfo[CSVParserMaximumSolarRadiationIndex] Attribute:CSVParserSolarRadiationFlagKey AttributeValue:updateInfo[CSVParserMaximumSolarRadiationFlagIndex] toParentElement:solarElement];
-        [CSVParser addSubElementWithName:CSVParserMinimumSolarRadiationKey Value:updateInfo[CSVParserMinimumSolarRadiationIndex] Attribute:CSVParserSolarRadiationFlagKey AttributeValue:updateInfo[CSVParserMinimumSolarRadiationFlagIndex] toParentElement:solarElement];
+        [CSVParser addSubElementWithName:CSVParserAverageSolarRadiationKey value:updateInfo[CSVParserAverageSolarRadiationIndex] attribute:CSVParserSolarRadiationFlagKey attributeValue:updateInfo[CSVParserAverageSolarRadiationFlagIndex] toParentElement:solarElement];
+        [CSVParser addSubElementWithName:CSVParserMaximumSolarRadiationKey value:updateInfo[CSVParserMaximumSolarRadiationIndex] attribute:CSVParserSolarRadiationFlagKey attributeValue:updateInfo[CSVParserMaximumSolarRadiationFlagIndex] toParentElement:solarElement];
+        [CSVParser addSubElementWithName:CSVParserMinimumSolarRadiationKey value:updateInfo[CSVParserMinimumSolarRadiationIndex] attribute:CSVParserSolarRadiationFlagKey attributeValue:updateInfo[CSVParserMinimumSolarRadiationFlagIndex] toParentElement:solarElement];
         [setElement addChild: solarElement];
 
         // Surface temperature element
         NSXMLElement *surElement = [[NSXMLElement alloc] initWithName: CSVParserSurfaceTemperatureSetKey];
         NSXMLElement *surAttribute = [NSXMLElement attributeWithName:CSVParserSurfaceTemperatureTypeKey stringValue:updateInfo[CSVParserSurfaceTemperatureTypeIndex]];
         [surElement addAttribute:surAttribute];
-        [CSVParser addSubElementWithName:CSVParserAverageSurfaceTemperatureKey Value:updateInfo[CSVParserAverageSurfaceTemperatureIndex] Attribute:CSVParserSurfaceTemperatureFlagKey AttributeValue:updateInfo[CSVParserAverageSurfaceTemperatureFlagIndex] toParentElement:surElement];
-        [CSVParser addSubElementWithName:CSVParserMaximumSurfaceTemperatureKey Value:updateInfo[CSVParserMaximumSurfaceTemperatureIndex] Attribute:CSVParserSurfaceTemperatureFlagKey AttributeValue:updateInfo[CSVParserMaximumSurfaceTemperatureFlagIndex] toParentElement:surElement];
-        [CSVParser addSubElementWithName:CSVParserMinimumSurfaceTemperatureKey Value:updateInfo[CSVParserMinimumSurfaceTemperatureIndex] Attribute:CSVParserSurfaceTemperatureFlagKey AttributeValue:updateInfo[CSVParserMinimumSurfaceTemperatureFlagIndex] toParentElement:surElement];
+        [CSVParser addSubElementWithName:CSVParserAverageSurfaceTemperatureKey value:updateInfo[CSVParserAverageSurfaceTemperatureIndex] attribute:CSVParserSurfaceTemperatureFlagKey attributeValue:updateInfo[CSVParserAverageSurfaceTemperatureFlagIndex] toParentElement:surElement];
+        [CSVParser addSubElementWithName:CSVParserMaximumSurfaceTemperatureKey value:updateInfo[CSVParserMaximumSurfaceTemperatureIndex] attribute:CSVParserSurfaceTemperatureFlagKey attributeValue:updateInfo[CSVParserMaximumSurfaceTemperatureFlagIndex] toParentElement:surElement];
+        [CSVParser addSubElementWithName:CSVParserMinimumSurfaceTemperatureKey value:updateInfo[CSVParserMinimumSurfaceTemperatureIndex] attribute:CSVParserSurfaceTemperatureFlagKey attributeValue:updateInfo[CSVParserMinimumSurfaceTemperatureFlagIndex] toParentElement:surElement];
         [setElement addChild: surElement];
 
         // RH-HR-AVG
@@ -200,17 +202,10 @@ enum : NSUInteger {
     if (updateInfos.count == 37)
         return nil;
 
-    // Remove redundant and erroneous data
-    [updateInfos removeObjectAtIndex:30];   // Soil moisture 20cm
-    [updateInfos removeObjectAtIndex:29];   // Soil moisture 10cm
-    [updateInfos removeObjectAtIndex:28];   // Soil moisture 5cm
-    [updateInfos removeObjectAtIndex:12];   // Precipitation
-    [updateInfos removeObjectAtIndex:4];    // Local time
-    [updateInfos removeObjectAtIndex:3];    // Local date
     return updateInfos;
 }
 
-+ (NSXMLElement *)addSubElementWithName:(NSString *)name Value:(NSString *)value Attribute:(NSString *)attr AttributeValue:(NSString *)attrValue toParentElement:(NSXMLElement *)parent
++ (NSXMLElement *)addSubElementWithName:(NSString *)name value:(NSString *)value attribute:(NSString *)attr attributeValue:(NSString *)attrValue toParentElement:(NSXMLElement *)parent
 {
     NSXMLElement *child = [[NSXMLElement alloc] initWithName:name stringValue:value];
     NSXMLElement *attribute = [NSXMLElement attributeWithName:attr stringValue:attrValue];
