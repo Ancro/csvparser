@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CSVParser : NSObject;
+@interface CSVParser : NSObject
 
+/*!
+ @abstract Returns an NSXMLDocument parsed from the CSV file located at the given URL.
+ */
 + (NSXMLDocument *)XMLDocumentFromFileAtURL:(NSURL *)sourceFile;
 
 @end

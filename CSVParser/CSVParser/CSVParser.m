@@ -89,17 +89,13 @@ enum : NSUInteger {
 
 @implementation CSVParser
 
-/*!
- @abstract Returns an NSXMLDocument parsed from the CSV file located at the given URL.
- */
 + (NSXMLDocument *)XMLDocumentFromFileAtURL:(NSURL *)sourceFile
 {
-    if (![NSFileManager.defaultManager fileExistsAtPath: sourceFile.path])
-        return nil;
-
     // Read file
-    NSData *fileContents = [NSFileManager.defaultManager contentsAtPath: [sourceFile path]];
-    NSString *input = [[NSString alloc] initWithData:fileContents encoding:NSUTF8StringEncoding];
+	NSString *input = [NSString stringWithContentsOfURL:sourceFile encoding:NSUTF8StringEncoding error:NULL];
+
+	if (!input)
+		return nil;
 
     // Split into array of lines
     NSArray *lines = [[input stringByTrimmingCharactersInSet: NSCharacterSet.whitespaceAndNewlineCharacterSet] componentsSeparatedByCharactersInSet: NSCharacterSet.newlineCharacterSet];
