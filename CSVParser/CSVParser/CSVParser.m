@@ -98,8 +98,8 @@ enum : NSUInteger {
 		return nil;
 	
 	// Initialize XML document
-	NSXMLElement *stationElement = [[NSXMLElement alloc] initWithName: CSVParserXMLRootKey];
-	NSXMLDocument *xmlDocument = [[NSXMLDocument alloc] initWithRootElement: stationElement];
+	NSXMLElement *stationElement = [NSXMLElement elementWithName: CSVParserXMLRootKey];
+	NSXMLDocument *xmlDocument = [NSXMLDocument documentWithRootElement: stationElement];
 	xmlDocument.version = @"1.0";
 	xmlDocument.characterEncoding = @"UTF-8";
 	
@@ -108,46 +108,46 @@ enum : NSUInteger {
 	xmlDTD.systemID = CSVParserDTDKey;
 	xmlDocument.DTD = xmlDTD;
 	
-	[stationElement addAttribute:[NSXMLElement attributeWithName:@"xmlns:xsi" stringValue:@"http://www.w3.org/2001/XMLSchema-instance"]];
+	[stationElement addNamespace:[NSXMLElement namespaceWithName:@"xsi" stringValue:@"http://www.w3.org/2001/XMLSchema-instance"]];
 	[stationElement addAttribute:[NSXMLElement attributeWithName:@"xsi:noNamespaceSchemaLocation" stringValue:CSVParserXSDKey]];
 
-    // Split into array of lines
-    NSArray *lines = [[input stringByTrimmingCharactersInSet: NSCharacterSet.whitespaceAndNewlineCharacterSet] componentsSeparatedByCharactersInSet: NSCharacterSet.newlineCharacterSet];
+	// Split into array of lines
+	NSArray *lines = [[input stringByTrimmingCharactersInSet: NSCharacterSet.whitespaceAndNewlineCharacterSet] componentsSeparatedByCharactersInSet: NSCharacterSet.newlineCharacterSet];
 	
 	// Add basic info
-	[stationElement addChild: [[NSXMLElement alloc] initWithName:CSVParserWBANNumberKey stringValue:[self splitLine:lines[0]][CSVParserWBANNumberIndex]]];
-	[stationElement addChild: [[NSXMLElement alloc] initWithName:CSVParserLongitudeKey stringValue:[self splitLine:lines[0]][CSVParserLongitudeIndex]]];
-	[stationElement addChild: [[NSXMLElement alloc] initWithName:CSVParserLatitudeKey stringValue:[self splitLine:lines[0]][CSVParserLatitudeIndex]]];
+	[stationElement addChild: [NSXMLElement elementWithName:CSVParserWBANNumberKey stringValue:[self splitLine:lines[0]][CSVParserWBANNumberIndex]]];
+	[stationElement addChild: [NSXMLElement elementWithName:CSVParserLongitudeKey stringValue:[self splitLine:lines[0]][CSVParserLongitudeIndex]]];
+	[stationElement addChild: [NSXMLElement elementWithName:CSVParserLatitudeKey stringValue:[self splitLine:lines[0]][CSVParserLatitudeIndex]]];
 
-    // Add update info
-    for (NSString *line in lines) {
-        NSArray *updateInfo = [self splitLine: line];
-        if (!updateInfo) {
-            return nil;
-        }
+	// Add update info
+	for (NSString *line in lines) {
+		NSArray *updateInfo = [self splitLine: line];
+		if (!updateInfo) {
+			return nil;
+		}
 		NSXMLElement *setElement = [[NSXMLElement alloc] initWithName: CSVParserDataSetKey];
 		
-		[setElement addChild: [[NSXMLElement alloc] initWithName:CSVParserUTCDateKey stringValue:updateInfo[CSVParserUTCDateIndex]]];
-		[setElement addChild: [[NSXMLElement alloc] initWithName:CSVParserUTCTimeKey stringValue:updateInfo[CSVParserUTCTimeIndex]]];
-		[setElement addChild: [[NSXMLElement alloc] initWithName:CSVParserDataLoggerVersionNumberKey stringValue:updateInfo[CSVParserDataLoggerVersionNumberIndex]]];
+		[setElement addChild: [NSXMLElement elementWithName:CSVParserUTCDateKey stringValue:updateInfo[CSVParserUTCDateIndex]]];
+		[setElement addChild: [NSXMLElement elementWithName:CSVParserUTCTimeKey stringValue:updateInfo[CSVParserUTCTimeIndex]]];
+		[setElement addChild: [NSXMLElement elementWithName:CSVParserDataLoggerVersionNumberKey stringValue:updateInfo[CSVParserDataLoggerVersionNumberIndex]]];
 		
 		// Temperature element
-		NSXMLElement *tempElement = [[NSXMLElement alloc] initWithName: CSVParserTemperatureSetKey];
-		[tempElement addChild: [[NSXMLElement alloc] initWithName:CSVParserAverageTemperatureKey stringValue:updateInfo[CSVParserAverageTemperatureIndex]]];
-		[tempElement addChild: [[NSXMLElement alloc] initWithName:CSVParserAverageTemperatureDuringEntireHourKey stringValue:updateInfo[CSVParserAverageTemperatureDuringEntireHourIndex]]];
-		[tempElement addChild: [[NSXMLElement alloc] initWithName:CSVParserMaximumTemperatureKey stringValue:updateInfo[CSVParserMaximumTemperatureIndex]]];
-		[tempElement addChild: [[NSXMLElement alloc] initWithName:CSVParserMinimumTemperatureKey stringValue:updateInfo[CSVParserMinimumTemperatureIndex]]];
+		NSXMLElement *tempElement = [NSXMLElement elementWithName: CSVParserTemperatureSetKey];
+		[tempElement addChild: [NSXMLElement elementWithName:CSVParserAverageTemperatureKey stringValue:updateInfo[CSVParserAverageTemperatureIndex]]];
+		[tempElement addChild: [NSXMLElement elementWithName:CSVParserAverageTemperatureDuringEntireHourKey stringValue:updateInfo[CSVParserAverageTemperatureDuringEntireHourIndex]]];
+		[tempElement addChild: [NSXMLElement elementWithName:CSVParserMaximumTemperatureKey stringValue:updateInfo[CSVParserMaximumTemperatureIndex]]];
+		[tempElement addChild: [NSXMLElement elementWithName:CSVParserMinimumTemperatureKey stringValue:updateInfo[CSVParserMinimumTemperatureIndex]]];
 		[setElement addChild: tempElement];
 		
 		// Solar radiation element
-		NSXMLElement *solarElement = [[NSXMLElement alloc] initWithName: CSVParserSolarRadiationSetKey];
+		NSXMLElement *solarElement = [NSXMLElement elementWithName: CSVParserSolarRadiationSetKey];
 		[CSVParser addSubElementWithName:CSVParserAverageSolarRadiationKey value:updateInfo[CSVParserAverageSolarRadiationIndex] attribute:CSVParserSolarRadiationFlagKey attributeValue:updateInfo[CSVParserAverageSolarRadiationFlagIndex] toParentElement:solarElement];
 		[CSVParser addSubElementWithName:CSVParserMaximumSolarRadiationKey value:updateInfo[CSVParserMaximumSolarRadiationIndex] attribute:CSVParserSolarRadiationFlagKey attributeValue:updateInfo[CSVParserMaximumSolarRadiationFlagIndex] toParentElement:solarElement];
 		[CSVParser addSubElementWithName:CSVParserMinimumSolarRadiationKey value:updateInfo[CSVParserMinimumSolarRadiationIndex] attribute:CSVParserSolarRadiationFlagKey attributeValue:updateInfo[CSVParserMinimumSolarRadiationFlagIndex] toParentElement:solarElement];
 		[setElement addChild: solarElement];
 		
 		// Surface temperature element
-		NSXMLElement *surElement = [[NSXMLElement alloc] initWithName: CSVParserSurfaceTemperatureSetKey];
+		NSXMLElement *surElement = [NSXMLElement elementWithName: CSVParserSurfaceTemperatureSetKey];
 		NSXMLElement *surAttribute = [NSXMLElement attributeWithName:CSVParserSurfaceTemperatureTypeKey stringValue:updateInfo[CSVParserSurfaceTemperatureTypeIndex]];
 		[surElement addAttribute:surAttribute];
 		[CSVParser addSubElementWithName:CSVParserAverageSurfaceTemperatureKey value:updateInfo[CSVParserAverageSurfaceTemperatureIndex] attribute:CSVParserSurfaceTemperatureFlagKey attributeValue:updateInfo[CSVParserAverageSurfaceTemperatureFlagIndex] toParentElement:surElement];
@@ -156,51 +156,51 @@ enum : NSUInteger {
 		[setElement addChild: surElement];
 		
 		// RH-HR-AVG
-		NSXMLElement *rhElement = [[NSXMLElement alloc] initWithName:CSVParserRHAverageKey stringValue:updateInfo[CSVParserRHAverageIndex]];
+		NSXMLElement *rhElement = [NSXMLElement elementWithName:CSVParserRHAverageKey stringValue:updateInfo[CSVParserRHAverageIndex]];
 		NSXMLElement *rhAttribute = [NSXMLElement attributeWithName:CSVParserRHAverageFlagKey stringValue:updateInfo[CSVParserRHAverageFlagIndex]];
 		[rhElement addAttribute: rhAttribute];
 		[setElement addChild: rhElement];
 		
 		// Soil element
-		NSXMLElement *soilElement = [[NSXMLElement alloc] initWithName:CSVParserSoilSetKey];
-		[soilElement addChild: [[NSXMLElement alloc] initWithName:CSVParserSoilMoisture50cmKey stringValue:updateInfo[CSVParserSoilMoisture50cmIndex]]];
-		[soilElement addChild: [[NSXMLElement alloc] initWithName:CSVParserSoilMoisture100cmKey stringValue:updateInfo[CSVParserSoilMoisture100cmIndex]]];
-		[soilElement addChild: [[NSXMLElement alloc] initWithName:CSVParserSoilTemperature5cmKey stringValue:updateInfo[CSVParserSoilTemperature5cmIndex]]];
-		[soilElement addChild: [[NSXMLElement alloc] initWithName:CSVParserSoilTemperature10cmKey stringValue:updateInfo[CSVParserSoilTemperature10cmIndex]]];
-		[soilElement addChild: [[NSXMLElement alloc] initWithName:CSVParserSoilTemperature20cmKey stringValue:updateInfo[CSVParserSoilTemperature20cmIndex]]];
-		[soilElement addChild: [[NSXMLElement alloc] initWithName:CSVParserSoilTemperature50cmKey stringValue:updateInfo[CSVParserSoilTemperature50cmIndex]]];
-		[soilElement addChild: [[NSXMLElement alloc] initWithName:CSVParserSoilTemperature100cmKey stringValue:updateInfo[CSVParserSoilTemperature100cmIndex]]];
+		NSXMLElement *soilElement = [NSXMLElement elementWithName:CSVParserSoilSetKey];
+		[soilElement addChild: [NSXMLElement elementWithName:CSVParserSoilMoisture50cmKey stringValue:updateInfo[CSVParserSoilMoisture50cmIndex]]];
+		[soilElement addChild: [NSXMLElement elementWithName:CSVParserSoilMoisture100cmKey stringValue:updateInfo[CSVParserSoilMoisture100cmIndex]]];
+		[soilElement addChild: [NSXMLElement elementWithName:CSVParserSoilTemperature5cmKey stringValue:updateInfo[CSVParserSoilTemperature5cmIndex]]];
+		[soilElement addChild: [NSXMLElement elementWithName:CSVParserSoilTemperature10cmKey stringValue:updateInfo[CSVParserSoilTemperature10cmIndex]]];
+		[soilElement addChild: [NSXMLElement elementWithName:CSVParserSoilTemperature20cmKey stringValue:updateInfo[CSVParserSoilTemperature20cmIndex]]];
+		[soilElement addChild: [NSXMLElement elementWithName:CSVParserSoilTemperature50cmKey stringValue:updateInfo[CSVParserSoilTemperature50cmIndex]]];
+		[soilElement addChild: [NSXMLElement elementWithName:CSVParserSoilTemperature100cmKey stringValue:updateInfo[CSVParserSoilTemperature100cmIndex]]];
 		[setElement addChild: soilElement];
 		
 		[stationElement addChild: setElement];
-    }
+	}
 
-    return xmlDocument;
+	return xmlDocument;
 }
 
 + (NSArray *)splitLine:(NSString *)fullLine
 {
-    // Replace multiple separation space characters by one space character
-    NSString *line = [fullLine stringByReplacingOccurrencesOfString:@"[ ]+"
-                                                         withString:@" "
-                                                            options:NSRegularExpressionSearch
-                                                              range:NSMakeRange(0, fullLine.length)];
+	// Replace multiple separation space characters by one space character
+	NSString *line = [fullLine stringByReplacingOccurrencesOfString:@"[ ]+"
+														 withString:@" "
+															options:NSRegularExpressionSearch
+															  range:NSMakeRange(0, fullLine.length)];
 
-    NSMutableArray *updateInfos = [[line componentsSeparatedByCharactersInSet: NSCharacterSet.whitespaceCharacterSet] mutableCopy];
+	NSMutableArray *updateInfos = [[line componentsSeparatedByCharactersInSet: NSCharacterSet.whitespaceCharacterSet] mutableCopy];
 
-    if (updateInfos.count == 37)
-        return nil;
+	if (updateInfos.count < 38)
+		return nil;
 
-    return updateInfos;
+	return updateInfos;
 }
 
 + (NSXMLElement *)addSubElementWithName:(NSString *)name value:(NSString *)value attribute:(NSString *)attr attributeValue:(NSString *)attrValue toParentElement:(NSXMLElement *)parent
 {
-    NSXMLElement *child = [[NSXMLElement alloc] initWithName:name stringValue:value];
-    NSXMLElement *attribute = [NSXMLElement attributeWithName:attr stringValue:attrValue];
-    [child addAttribute: attribute];
-    [parent addChild: child];
-    return parent;
+	NSXMLElement *child = [[NSXMLElement alloc] initWithName:name stringValue:value];
+	NSXMLElement *attribute = [NSXMLElement attributeWithName:attr stringValue:attrValue];
+	[child addAttribute: attribute];
+	[parent addChild: child];
+	return parent;
 }
 
 @end
